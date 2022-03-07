@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import './tableLaunches.css'
 
-export const TableLaunches = ({ dates, setLaunchesTotal, setLocations }) => {
+export const TableLaunches = ({ dates, setLaunchesTotal, setLocations, setCoordinates }) => {
   const [ launchesData, setLaunchesData ] = useState([])
   const [ nextPage, setNextPage ] = useState(null)
   const [ previousPage, setPreviousPage ] = useState(null)
+
  
   const buildParams = ( object ) => {
     let queryString = '?'
@@ -27,22 +28,27 @@ export const TableLaunches = ({ dates, setLaunchesTotal, setLocations }) => {
         const endpoint = 'https://lldev.thespacedevs.com/2.2.0/launch/' + queryParams
         const res = await fetch(endpoint)
         const resJson = await res.json()
-        console.log(resJson);
 
         const totalLaunches = await resJson.count
         const dataResults = await resJson.results
         const next = await resJson.next
         const previous = await resJson.previous 
+        
         const locations = dataResults.map(launch => launch.pad.name)
+        const coordinates = dataResults.map(launch => {
+          return { 'coordinates': [launch.pad.longitude, launch.pad.latitude] }
+        })
 
         setNextPage(next)
         setPreviousPage(previous)
         setLaunchesTotal(totalLaunches)
         setLaunchesData(dataResults)
         setLocations(locations)
+      setCoordinates(coordinates)
+
       })()
     }
-  },[setLaunchesData, dates, setLaunchesTotal, setLocations])
+  },[setLaunchesData, dates, setLaunchesTotal, setLocations, setCoordinates])
   
   const handlePrevious = async () => {
     const endpoint = previousPage
@@ -52,13 +58,17 @@ export const TableLaunches = ({ dates, setLaunchesTotal, setLocations }) => {
     const dataResults = await resJson.results
     const next = await resJson.next
     const previous = await resJson.previous
+    
     const locations = dataResults.map(launch => launch.pad.name)
-
+    const coordinates = dataResults.map(launch => {
+      return { 'coordinates': [launch.pad.longitude, launch.pad.latitude] }
+    })
     
     setNextPage(next)
     setPreviousPage(previous)
     setLaunchesData(dataResults)
     setLocations(locations)
+    setCoordinates(coordinates)
   }
 
   const handleNext = async () => {
@@ -69,12 +79,17 @@ export const TableLaunches = ({ dates, setLaunchesTotal, setLocations }) => {
     const dataResults = await resJson.results
     const next = await resJson.next
     const previous = await resJson.previous 
+    
     const locations = dataResults.map(launch => launch.pad.name)
+    const coordinates = dataResults.map(launch => {
+      return { 'coordinates': [launch.pad.longitude, launch.pad.latitude] }
+    })
 
     setNextPage(next)
     setPreviousPage(previous)
     setLaunchesData(dataResults)
     setLocations(locations)
+    setCoordinates(coordinates)
   }
 
   return (
