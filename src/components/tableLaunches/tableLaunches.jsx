@@ -21,22 +21,24 @@ export const TableLaunches = ({ dates, totalLaunchesCb }) => {
   }
 
   useEffect(() => {
-    (async () => {
-      const queryParams = buildParams(dates)
-      const endpoint = 'https://lldev.thespacedevs.com/2.2.0/launch/' + queryParams
-      const res = await fetch(endpoint)
-      const resJson = await res.json()
-
-      const totalLaunches = await resJson.count
-      const dataResults = await resJson.results
-      const next = await resJson.next
-      const previous = await resJson.previous 
-      
-      setNextPage(next)
-      setPreviousPage(previous)
-      totalLaunchesCb(totalLaunches)
-      setLaunchesData(dataResults)
-    })()
+    if (Object.keys(dates).length > 0) {
+      (async () => {
+        const queryParams = buildParams(dates)
+        const endpoint = 'https://lldev.thespacedevs.com/2.2.0/launch/' + queryParams
+        const res = await fetch(endpoint)
+        const resJson = await res.json()
+  
+        const totalLaunches = await resJson.count
+        const dataResults = await resJson.results
+        const next = await resJson.next
+        const previous = await resJson.previous 
+        
+        setNextPage(next)
+        setPreviousPage(previous)
+        totalLaunchesCb(totalLaunches)
+        setLaunchesData(dataResults)
+      })()
+    }
   },[setLaunchesData, dates, totalLaunchesCb])
   
   const handlePrevious = async () => {
