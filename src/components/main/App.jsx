@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { SearchBar } from '../searchBar/searchBar'
 import { TableLaunches } from '../tableLaunches/tableLaunches';
 
