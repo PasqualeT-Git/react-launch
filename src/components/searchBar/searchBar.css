@@ -1,7 +1,7 @@
 form {
   padding: 12px;
   border: solid 1px black;
-  margin: 24px;
+
   display: flex;
   justify-content: space-around;
   align-items: center;
