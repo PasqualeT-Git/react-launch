@@ -33,8 +33,8 @@ export const TableLaunches = ({ dates, setLaunchesTotal, setLocations, setCoordi
         const dataResults = await resJson.results
         const next = await resJson.next
         const previous = await resJson.previous 
-        
-        const locations = dataResults.map(launch => launch.pad.name)
+        console.log(dataResults);
+        const locations = dataResults.map(launch => launch.pad.location.country_code)
         const coordinates = dataResults.map(launch => {
           return { 'coordinates': [launch.pad.longitude, launch.pad.latitude] }
         })
