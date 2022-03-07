@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './tableLaunches.css'
 
-export const TableLaunches = ({ dates, totalLaunchesCb }) => {
+export const TableLaunches = ({ dates, setLaunchesTotal, setLocations }) => {
   const [ launchesData, setLaunchesData ] = useState([])
   const [ nextPage, setNextPage ] = useState(null)
   const [ previousPage, setPreviousPage ] = useState(null)
@@ -27,19 +27,22 @@ export const TableLaunches = ({ dates, totalLaunchesCb }) => {
         const endpoint = 'https://lldev.thespacedevs.com/2.2.0/launch/' + queryParams
         const res = await fetch(endpoint)
         const resJson = await res.json()
-  
+        console.log(resJson);
+
         const totalLaunches = await resJson.count
         const dataResults = await resJson.results
         const next = await resJson.next
         const previous = await resJson.previous 
-        
+        const locations = dataResults.map(launch => launch.pad.name)
+
         setNextPage(next)
         setPreviousPage(previous)
-        totalLaunchesCb(totalLaunches)
+        setLaunchesTotal(totalLaunches)
         setLaunchesData(dataResults)
+        setLocations(locations)
       })()
     }
-  },[setLaunchesData, dates, totalLaunchesCb])
+  },[setLaunchesData, dates, setLaunchesTotal, setLocations])
   
   const handlePrevious = async () => {
     const endpoint = previousPage
@@ -48,11 +51,14 @@ export const TableLaunches = ({ dates, totalLaunchesCb }) => {
 
     const dataResults = await resJson.results
     const next = await resJson.next
-    const previous = await resJson.previous 
+    const previous = await resJson.previous
+    const locations = dataResults.map(launch => launch.pad.name)
+
     
     setNextPage(next)
     setPreviousPage(previous)
     setLaunchesData(dataResults)
+    setLocations(locations)
   }
 
   const handleNext = async () => {
@@ -63,10 +69,12 @@ export const TableLaunches = ({ dates, totalLaunchesCb }) => {
     const dataResults = await resJson.results
     const next = await resJson.next
     const previous = await resJson.previous 
+    const locations = dataResults.map(launch => launch.pad.name)
 
     setNextPage(next)
     setPreviousPage(previous)
     setLaunchesData(dataResults)
+    setLocations(locations)
   }
 
   return (
