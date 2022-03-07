@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useState } from 'react';
-import { SearchBar } from '../searchBar/searchBar'
-import { TableLaunches } from '../tableLaunches/tableLaunches';
+import { SearchBar } from '../searchBar/SearchBar'
+import { TableLaunches } from '../tableLaunches/TableLaunches';
 
 function App() {
   const [ dates, setDates ] = useState({})
