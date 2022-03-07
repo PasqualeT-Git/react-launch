@@ -11,11 +11,6 @@ function App() {
   const [ locations, setLocations ] = useState([])
   const [ coordinates, setCoordinates ] = useState([])
 
-  const containerStyle = {
-    margin: '24px auto',
-    maxWidth: '1024px',
-  }
-
   const searchBarCb =({ start, end }) => {
     setDates(prevState => {
       return { ...prevState, 'startDate': start, 'endDate': end }
@@ -23,7 +18,7 @@ function App() {
   }
 
   return (
-    <div className="App" style={containerStyle} >
+    <div className="App">
       <SearchBar searchBarCb={searchBarCb}/>
       <p style={{float: 'left', marginTop: '48px'}}>Founded <strong>{launchesTotal}</strong> launches:</p>
       <TableLaunches  dates={dates} 

@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  margin: 24px auto;
+  max-width: 1024px;
 }
 
 .App-logo {
@@ -39,4 +41,10 @@
 
 button:hover {
   cursor: pointer;
+}
+
+@media screen and (max-width: 1080px) {
+  .App {
+    margin: 24px;
+  }
 }
