@@ -20,6 +20,10 @@ ChartJS.register(
 );
 
 export const ChartLaunches = ({ locations }) => {
+  const chartStyle = {
+    marginTop:'24px',
+  } 
+
   const launchesObjs = locations.reduce((prevValue, currentValue) => {
     if (currentValue in prevValue) {
       prevValue[currentValue]++
@@ -50,6 +54,6 @@ export const ChartLaunches = ({ locations }) => {
   };
 
   return (
-    locations.length > 0 && <Bar data={data} options={options}/>
+    locations.length > 0 && <Bar data={data} options={options} style={chartStyle}/>
   )
 } 
