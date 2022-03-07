@@ -1,11 +1,13 @@
 import './App.css';
 import React, { useState } from 'react';
-import { SearchBar } from '../searchBar/searchBar'
-import { TableLaunches } from '../tableLaunches/tableLaunches';
+import { SearchBar } from '../searchBar/SearchBar'
+import { TableLaunches } from '../tableLaunches/TableLaunches';
+import { ChartLaunches } from '../chartLaunches/ChartLaunches'
 
 function App() {
   const [ dates, setDates ] = useState({})
   const [ launchesTotal, setLaunchesTotal ] = useState(0)
+  const [ locations, setLocations ] = useState([])
 
   const containerStyle = {
     margin: '24px auto',
@@ -18,14 +20,15 @@ function App() {
     })
   }
 
-  const totalLaunchesCb = (total) => { setLaunchesTotal(total) }
-
   return (
     <div className="App" style={containerStyle} >
       <SearchBar searchBarCb={searchBarCb}/>
       <p style={{float: 'left', marginTop: '48px'}}>Founded <strong>{launchesTotal}</strong> launches:</p>
       <TableLaunches  dates={dates} 
-                      totalLaunchesCb = {totalLaunchesCb} />
+                      setLaunchesTotal={setLaunchesTotal} 
+                      setLocations={setLocations}/>
+
+      <ChartLaunches  locations={locations}/>
     </div>
   );
 }
