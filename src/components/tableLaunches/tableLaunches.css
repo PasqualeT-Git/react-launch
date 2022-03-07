@@ -4,6 +4,7 @@ table, th, td {
 
 table {
   width: 100%;
+  height: 500px;
 }
 
 #nav_buttons {
