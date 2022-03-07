@@ -1,0 +1,13 @@
+table, th, td {
+  border: solid 1px black;
+}
+
+table {
+  width: 100%;
+}
+
+#nav_buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
