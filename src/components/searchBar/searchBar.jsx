@@ -1,9 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import './searchBar.css'
 
-export const SearchBar = () => {
-  const [ startDate, setStartDate ] = useState(new Date());
-  const [ endDate, setEndDate ] = useState(new Date());
+export const SearchBar = ({ searchBarCb }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -16,14 +14,9 @@ export const SearchBar = () => {
     const isosStart = new Date(start).toISOString()
     const isosEnd = new Date(end).toISOString()
 
-    // Set the datetimes as new states
-    setStartDate(isosStart)
-    setEndDate(isosEnd)
+    // Call the callback function from props to set state in App
+    searchBarCb({ 'start': isosStart, 'end': isosEnd })
   }
-
-  useEffect(() => {
-    console.log(startDate, endDate)
-  })
 
   return (
     <>
